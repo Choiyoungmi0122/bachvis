@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>BatchVis</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #F0F7FB;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            width: 96%;
+            padding: 32px;
+        }
+
+        /* 왼쪽 영역 */
+        .left-panel {
+            display: flex;
+            flex-direction: column;
+            width: 30%;
+            margin-right: 24px;
+        }
+
+        .header {
+            margin-bottom: 16px;
+        }
+
+        .title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 36px;
+            font-weight: 700;
+            color: #3D2D4C;
+            margin: 0;
+        }
+
+        .underline {
+            border: none;
+            height: 1px;
+            background-color: #B7BCC9;
+            margin-top: 6px;
+        }
+
+        .sidebar {
+            background-color: #ffffff;
+            border-radius: 4px;
+            box-shadow: 0 0 11px rgba(128, 139, 157, 0.15);
+            padding: 24px;
+            font-size: 16px;
+            line-height: 1.6;
+            height: 794px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .input-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        /* 오른쪽 인터페이스 */
+        .main-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .question-box label {
+            font-weight: bold;
+        }
+
+        .question-box select {
+            width: 100%;
+            height: 40px;
+            font-size: 16px;
+            margin-top: 8px;
+        }
+
+        .response-box {
+            background-color: #fff;
+            border-radius: 4px;
+            padding: 16px;
+            box-shadow: 0 0 11px rgba(128, 139, 157, 0.15);
+            position: relative;
+        }
+
+        .response-box button {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background-color: #C5C0CA;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .input-box textarea {
+            flex: 1;
+            height: 48px;
+            padding: 10px;
+            font-size: 16px;
+            resize: none;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        .input-box button {
+            background-color: #8E12D5;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 왼쪽 패널 -->
+        <div class="left-panel">
+            <div class="header">
+                <h1 class="title">BatchVis</h1>
+                <hr class="underline" />
+            </div>
+            <div class="sidebar">
+                <p>당신은 현재 상담을 받고 있는 유금순 환자입니다...</p>
+                <br/>
+                <p><strong>[대화 규칙]</strong><br/>
+                    1. 한 번에 한 문장만 응답합니다.<br/>
+                    2. 비언어적 표현을 괄호로 삽입하며...<br/>
+                    3. 말끝을 흐리거나 망설이는 표현도 사용...<br/>
+                    4. 의학 용어보다 일상 표현을 사용...<br/>
+                    5. 발화는 반드시 맥락과 자연스럽게 연결되어야 함.
+                    displayfs
+                    sdf
+                    sdfsd                    4. 의학 용어보다 일상 표현을 사용...<br/>
+                    4. 의학 용어보다 일상 표현을 사용...<br/>
+                    4. 의학 용어보다 일상 표현을 사용...<br/>
+                    4. 의학 용어보다 일상 표현을 사용...<br/>
+                    4. 의학 용어보다 일상 표현을 사용...<br/>
+
+                </p>
+                <!-- 입력 박스 -->
+            <div class="input-box">
+                <textarea placeholder="여기에 응답을 입력하세요..."></textarea>
+                <button>전송</button>
+            </div>
+            </div>
+        </div>
+
+        <!-- 오른쪽 패널 -->
+        <div class="main-panel">
+            <!-- 질문 선택 -->
+            <div class="question-box">
+                <label for="question">어디가 불편해서 방문하게 되었나요?</label>
+                <select id="question">
+                    <option>문항을 선택하세요</option>
+                    <option value="1">불안해서 상담 받으러 왔어요.</option>
+                    <option value="2">답답함과 우울감이 심해졌어요.</option>
+                </select>
+            </div>
+
+            <!-- 선택지 응답 예시 -->
+            <div class="response-box">
+                <p>(불안하게 손을 만지작거리며)... 그래서 이렇게 상담을 받으러 오게 됐어요.</p>
+                <button>선택</button>
+            </div>
+
+            <div class="response-box">
+                <p>(작게 한숨을 쉬며)... 상담을 받으러 오게 됐어요.</p>
+                <button>선택</button>
+            </div>
+
+            
+        </div>
+    </div>
+</body>
+</html>
