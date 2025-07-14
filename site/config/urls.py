@@ -18,9 +18,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from .views import main_page  # ← 방금 만든 view
+from django.urls import path
+from prompt_engine.views import generate_virtual_patient
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('', main_page, name='main'),  # ← 루트 주소로 연결
-
+    path("api/generate/", generate_virtual_patient),
 ]

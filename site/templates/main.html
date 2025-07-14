@@ -141,6 +141,8 @@
       <div class="sidebar">
         <!-- 출력 영역 -->
         <div class="display-area" id="displayArea">
+          <div id="loading" style="display: none; color: #888; margin-bottom: 10px;">
+            ⏳ 잠시만 기다려주세요.. </div>
         </div>
 
         <!-- 입력 박스 -->
@@ -173,20 +175,94 @@
       </div>
     </div>
   </div>
+<script>
+  let gptProfile = "";
+  let temperamentLabel = "";
+  let responseList = [];
 
-  <script>
-    function submitText() {
-      const input = document.getElementById("inputText");
-      const display = document.getElementById("displayArea");
+  // 로딩 엘리먼트 가져오기
+  const loading = document.getElementById("loading");
 
-      if (input.value.trim() !== "") {
-        const newText = document.createElement("p");
-        newText.textContent = input.value;
-        display.appendChild(newText);
-        input.value = "";
-        display.scrollTop = display.scrollHeight;
-      }
-    }
-  </script>
+  function displayResponses(data) {
+    gptProfile = data.profile || data.gpt_profile;
+    temperamentLabel = data.trait || data.temperament_label;
+    responseList = data.responses || data.responses;
+
+    const mainPanel = document.querySelector(".main-panel");
+    mainPanel.innerHTML = ""; // 초기화
+
+    // 질문 드롭다운 생성
+    const questionBox = document.createElement("div");
+    questionBox.className = "question-box";
+    questionBox.innerHTML = `
+      <label for="question">어디가 불편해서 방문하게 되었나요?</label>
+      <select id="question" onchange="filterResponses(this.value)">
+        <option value="">문항을 선택하세요</option>
+        ${responseList.map((r, i) => `<option value="${i}">${r.question}</option>`).join("")}
+      </select>
+    `;
+    mainPanel.appendChild(questionBox);
+
+    // 응답 박스 생성
+    responseList.forEach((res, idx) => {
+      const box = document.createElement("div");
+      box.className = "response-box";
+      box.innerHTML = `
+        <strong>${temperamentLabel}</strong>
+        <p>${res.answer}</p>
+        <button onclick="showProfile()">선택</button>
+      `;
+      mainPanel.appendChild(box);
+    });
+  }
+
+  // 선택 버튼 클릭 시 왼쪽 출력창에 프로필 표시
+  function showProfile() {
+    const displayArea = document.getElementById("displayArea");
+    displayArea.textContent = gptProfile;
+  }
+
+  // 질문 선택 시 필터링 기능
+  function filterResponses(index) {
+    const mainPanel = document.querySelector(".main-panel");
+    mainPanel.querySelectorAll(".response-box").forEach((box, i) => {
+      box.style.display = (index === "" || Number(index) === i) ? "block" : "none";
+    });
+  }
+
+  // API 호출 및 데이터 표시
+  function fetchAndDisplay() {
+    loading.style.display = "block"; // 로딩 표시
+    fetch("/api/generate/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: "유금순",
+        gender: "여성",
+        age: 60,
+        diagnosis: "우울장애"
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        loading.style.display = "none"; // 로딩 숨기기
+        if (data.error) {
+          alert("에러: " + data.error);
+          return;
+        }
+        displayResponses(data);
+      })
+      .catch(err => {
+        loading.style.display = "none";
+        alert("서버 에러: " + err.message);
+      });
+  }
+
+  // 페이지 로드 시 자동 호출
+  window.onload = fetchAndDisplay;
+</script>
+
+
+
 </body>
 </html>
