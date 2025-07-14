@@ -1,5 +1,7 @@
 # === 기본 설정 ===
 * text=auto
+* text=auto
+*.json text eol=lf
 
 # === 줄바꿈 제어: LF 고정 ===
 *.js     text eol=lf
